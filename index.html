@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>지뢰찾기</title>
+    <link href="https://fonts.googleapis.com/css?family=Black+Ops+One|Russo+One&display=swap" rel="stylesheet">
+    <link rel = "stylesheet" href="style.css">
+    <link rel = "stylesheet" href="normalize.css">
+</head>
+<body>
+    <header class="game-title">Minesweeper</header>
+
+    <div class="container beginner">
+        <div class="game-box">
+            <div class="game-ctr">
+                <div class="count-box">
+                    <span>0</span>
+                    <span>1</span>
+                    <span>0</span>
+                </div>
+                <button type="button" class="btn-reset"></button>
+                <div class="time-box">
+                    <span>0</span>
+                    <span>0</span>
+                    <span>0</span>
+                </div>
+            </div>
+            <!-- .game-ctr -->
+            <table class="game-board">
+                <tbody></tbody>
+            </table>
+            <!-- .game-board -->
+        </div>
+        <!-- .game-box -->
+    </div>
+
+    <div class="btn-box">
+        <button type="button" data-level="beginner" >beginner</button>
+        <button type="button" data-level="intermediate" >intermediate</button>
+        <button type="button" data-level="expert" >expert</button>
+    </div>
+
+    <div class="game-result">
+        <p class="title"></p>
+        <p class="result" >
+            time: <span class="time"></span><br>
+            Mines Remaining: <span class="mine"></span>
+        </p>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
