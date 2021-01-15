@@ -25,7 +25,7 @@
                 col: 30
             }
         },
-        difMine: 10,
+        defMines: 10,
         defRow: 9,
         defCol: 9,
         board: [],
@@ -46,7 +46,7 @@
     let finalTime = 0;
     let minesRemain = 0;
 
-    $btnLevel.addEventListener('click', function(e){
+    $btnLevel.addEventListener('click', function (e){
         if(e.target.nodeName === 'BUTTON'){
             resetGame();
             let level = e.target.dataset.level;
@@ -59,7 +59,7 @@
         }
     });
 
-    window.addEventListener('load', function(){
+    window.addEventListener('load', function (){
         createBoard(INIT.defRow, INIT.defCol);
         $td = $gameTable.querySelectorAll('.square');
         $btnReset.addEventListener('click', resetGame);
@@ -67,15 +67,15 @@
 
     function print3Digits (num, elements) {
         let mineLen = ('' + num).padStart(3, '0').split('').slice(-3);
-        elements.forEach(function(span, i){
-            span.textContent = mineLen[i]
+        elements.forEach(function (span, i) {
+            span.textContent = mineLen[i];
         });
     }
 
     function timer(){
         let startTime = 1;
 
-        print3Digits(1,$timer);
+        print3Digits(1, $timer);
         timerId = setInterval(function(){
             startTime++;
             print3Digits(startTime, $timer);
@@ -84,7 +84,7 @@
     }
 
     function resetTimer() {
-        print3Digits(0,$timer);
+        print3Digits(0, $timer);
         clearInterval(timerId);
     }
 
@@ -99,10 +99,10 @@
                 $td.className = 'square';
                 $td.dataset.id = cntTd;
 
-                $td.addEventListener('click',function(e){
+                $td.addEventListener('click', function (e){
                     leftClickEvent(e, Number($td.dataset.id));
                 });
-                $td.addEventListener('contextmenu', function(e){
+                $td.addEventListener('contextmenu', function (e){
                     rightClickEvent(e, Number($td.dataset.id));
                 });
 
@@ -123,7 +123,7 @@
             }
         }
 
-        for(let i=0; i<mLen; i++){
+        for(let i = 0; i < mLen; i++){
             let rd1 = Math.floor(Math.random() * row);
             let rd2 = Math.floor(Math.random() * col);
             if(INIT.board[rd1][rd2] === 'm' || (rd1 === x && rd2 === y)){
@@ -133,14 +133,14 @@
                 countMines(rd1, rd2, INIT.board);
             }
         }
-        INIT.boardFlat = [].concat.apply([],INIT.board);
+        INIT.boardFlat = [].concat.apply([], INIT.board);
 
         function countMines(in1, in2, arr) {
             let iLen = in1 + 2;
             let jLen = in2 + 2;
-            for(let i = in1-1; i<iLen; i++){
-                for(let j=in2-1; j<jLen; j++){
-                    if(i<0 || j<0 || i===arr.length || j===arr[i].length || (i===in1 && j===in2)) {
+            for(let i = in1 - 1; i < iLen; i++){
+                for(let j = in2 - 1; j < jLen; j++){
+                    if(i < 0 || j < 0 || i === arr.length || j === arr[i].length || (i === in1 && j === in2)) {
                         continue;
                     }
                     arr[i][j] += (arr[i][j] !== 'm') ? 1 : '';
@@ -150,7 +150,7 @@
     }
 
     function leftClickEvent (e, tdIndex) {
-        if($gameResult.classList.contains('show')){
+        if($gameResult.classList.contains('show')) {
             return;
         }
         if(!gameStart) {
@@ -165,7 +165,7 @@
             return;
         }
         let item = INIT.boardFlat[tdIndex];
-        let x = Math.floor(tdIndex/INIT.defCol);
+        let x = Math.floor(tdIndex / INIT.defCol);
         let y = tdIndex % INIT.defCol;
         if(item ==='m'){
             gameOver(e.currentTarget);
@@ -213,7 +213,7 @@
 
     function gameOver (id) {
         resetTimer();
-        $brnReset.classList.add('game-over');
+        $btnReset.classList.add('game-over');
         if(id){
             id.classList.add('bg-red');
         }
@@ -267,7 +267,7 @@
         INIT.boardFlat = null;
         $td.forEach(function (td){
             td.textContent = '';
-            td.classList = 'square';
+            td.className = 'square';
         });
     }
 
@@ -307,3 +307,73 @@
         }
     }
 })();
+
+  // function placeMines (mLen, row, col, x, y) {
+  //   for (let i = 0; i < row; i++) {
+  //     INIT.board.push([]);
+  //     for (let j = 0; j < col; j++) {
+  //       INIT.board[i].push(0);
+  //     }
+  //   }
+  //   for (let i = 0; i < mLen; i++) {
+  //     let rd1 = Math.floor(Math.random() * row);
+  //     let rd2 = Math.floor(Math.random() * col);
+  //     if (INIT.board[rd1][rd2] || INIT.board[x][y]) {
+  //       i--;
+  //     } else {
+  //       INIT.board[rd1][rd2] = 'm';
+  //     }
+  //   }
+  //   for (let i = 0; i < INIT.board.length; i++) {
+  //     for (let j = 0; j < INIT.board[i].length; j++) {
+  //       if (INIT.board[i][j] !== 'm') {
+  //         INIT.board[i][j] = countMines(i, j, INIT.board);
+  //       }
+  //     }
+  //   }
+  //   function countMines (in1, in2, arr) {
+  //     let cnt = 0;
+  //     let iLen = in1 + 2;
+  //     let jLen = in2 + 2;
+  //     for (let i = in1 - 1; i < iLen; i++) {
+  //       for (let j = in2 - 1; j < jLen; j++) {
+  //         if (i < 0 || j < 0 || i > arr.length - 1 || (i === in1 && j === in2)) {
+  //           continue;
+  //         }
+  //         if (arr[i][j] === 'm') {
+  //           cnt++;
+  //         }
+  //       }
+  //     }
+  //     return cnt;
+  //   }
+  // }
+
+      // $row.forEach(function (tr, i) {
+  //   const $td = tr.querySelectorAll('td');
+  //   $td.forEach(function (td, j) {
+  //     td.addEventListener('click', function (e) {
+  //       console.log(board[i][j]);
+  //       if (board[i][j] === 'm') {
+  //         e.currentTarget.classList.add('bg-red');
+
+  //         for (let i = 0; i < board.length; i++) {
+  //           for (let j = 0; j < board[i].length; j++) {
+  //             if (board[i][j] === 'm') {
+  //               let hasMine = $row[i].querySelector(`td:nth-child(${j + 1})`);
+  //               hasMine.classList.add('clicked');
+  //               hasMine.classList.add('has-mine');
+  //             }
+  //           }
+  //         }
+
+  //       }
+  //       if (board[i][j] !== 0 && board[i][j] !== 'm') {
+  //         let n = board[i][j];
+  //         e.currentTarget.classList.add('clicked');
+  //         e.currentTarget.classList.add(`txt-${n}`);
+  //         e.currentTarget.textContent = n;
+  //       }
+  //     });
+  //   });
+  // });
